@@ -175,13 +175,16 @@ def main():
     #---------------------------------------------------------------------------
     # Write the config file
     with open('pycp2k/config.py', 'w') as config_file:
-        contents = ("#! /usr/bin/env python\n"
-                    "# -*- coding: utf-8 -*-\n\n"
-                    "cp2k_default_command = \"" + cp2k_default_command + "\"\n"
-                    "mpi_default_command = \"" + mpi_default_command + "\"\n"
-                    "mpi_on_default = " + str(mpi_on_default) + "\n"
-                    "build_version = \"" + version.split()[2] + "\"\n"
-                    "build_revision = \"" + revision.split()[-1] + "\"")
+        contents = textwrap.dedent(f"""\
+            #! /usr/bin/env python
+            # -*- coding: utf-8 -*-
+
+            cp2k_default_command = {cp2k_default_command!r}
+            mpi_default_command = {mpi_default_command!r}
+            mpi_on_default = {mpi_on_default}
+            build_version = {version.split()[2]!r}
+            build_revision = {revision!r}
+            """)
         config_file.write(contents)
 
     # Start package setup
