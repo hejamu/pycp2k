@@ -26,6 +26,10 @@ def validify_section(string):
         changed = True
         string = string.replace("+", "PLUS")
 
+    if "." in string:
+        changed = True
+        string = string.replace(".", "DOT")
+
     if string[0].isdigit():
         changed = True
         string = "NUM" + string
@@ -50,7 +54,7 @@ def validify_keyword(string):
     if string == None:
         print("    Keyword None replaced with NO_DEFAULT")
         return "NO_DEFAULT"
-    
+
     if "-" in string:
         changed = True
         string = string.replace("-", "_")
@@ -58,6 +62,10 @@ def validify_keyword(string):
     if "+" in string:
         changed = True
         string = string.replace("+", "PLUS")
+
+    if "." in string:
+        changed = True
+        string = string.replace(".", "DOT")
 
     if string[0].isdigit():
         changed = True
@@ -255,6 +263,7 @@ def recursive_class_creation(section, level, class_dictionary, version_dictionar
         member_name = subsection.find("NAME").text
         member_name = member_name.replace("-", "_")
         member_name = member_name.replace("+", "PLUS")
+        member_name = member_name.replace(".", "DOT")
         if member_name[0].isdigit():
             member_name = "_" + member_name
         imports.append("from .{0} import {0}".format(member_class_name))
